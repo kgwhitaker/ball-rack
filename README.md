@@ -1,6 +1,6 @@
 # Ball Rack
 
-Generalize Ball Holder
+Generalized Ball Holder
 
 This will build a 3D model to hold balls of various diameters worthy of realizing on your 3D Printer. I have used this model to
 create a holder for wool dryer balls that fastens to the wall and lacrosse balls that sits on a table in the exercise room.
