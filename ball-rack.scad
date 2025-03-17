@@ -12,6 +12,8 @@ $fs = 0.4;
 // *** Principal Parameters for the Ball Holder ***
 
 // Diameter of the ball in millimeters.  Include spacing so that it is not too tight.
+// 64mm for a lacrosse ball.
+// 80mm for a wool dryer ball.
 ball_diameter = 64;
 
 // Number of balls to hold in each column.
@@ -35,6 +37,15 @@ screw_shaft_diameter = 6;
 // If true, the ball holder will have a ball feeder at the bottom.
 // Otherwise the balls need to be pulled from the top.
 is_feeder = true;
+
+//
+// Scale for the feeder tray, if desired.  This will make the catch tray 
+// a percentage of the ball diameter.  I think the aesthetics are better if the catch 
+// tray is less than the diameter of the ball.  
+//
+// 1 is no scaling.
+//
+feeder_scale = 0.67;
 
 // Set to true to put cutouts on the sides of the holder to reduce filament use.
 is_side_cutouts = false;
@@ -175,9 +186,9 @@ module feeder_ramp(column = 0) {
 //
 // Creates the feeder catcher tray.
 //
-module feeder_tray() {
+module feeder_tray() {    
     translate([0,ball_diameter,0]) {
-        cuboid([width, depth, (ball_diameter / 2)], anchor=FRONT+LEFT+BOT, rounding=fillet_radius,  except=BOT);
+        cuboid([width, depth * feeder_scale, (ball_diameter / 2)], anchor=FRONT+LEFT+BOT, rounding=fillet_radius,  except=BOT);
     }
 }
 
@@ -197,7 +208,7 @@ module feeder_tube(column = 0) {
         wall_thickness]) {
 
             // the 0.1 in the height is to force an overlap of the bottom half and the top half of the cutout.
-            cuboid([ball_diameter, ball_diameter + (wall_thickness * 4), ((ball_diameter / 2) - wall_thickness + 0.1)], 
+            cuboid([ball_diameter, ((ball_diameter + (wall_thickness * 4)) * feeder_scale), ((ball_diameter / 2) - wall_thickness + 0.1)], 
                 anchor=FRONT+LEFT+BOT, 
                 rounding=(fillet_radius * 2),   
                 except=[FRONT, TOP]);
@@ -275,7 +286,6 @@ module build_model() {
         // Layer in feeder ramps for the feeder tray.
         for (i = [0 : columns - 1]) {
             feeder_ramp(i);
-            // feeder_tube(i);
         }
 
     }
