@@ -21,8 +21,28 @@ create a holder for wool dryer balls that fastens to the wall and lacrosse balls
 
 ## Dependencies and Building
 
-This model is built using the tools listed below.  Install these tools and you can open up the SCAD file 
+This model is built using the tools listed below. Install these tools and you can open up the SCAD file
 in this repo to create your own printable object.
 
 - [OpenSCAD](https://openscad.org)
 - [The Belfry OpenScad Library, v2.0.](https://github.com/BelfrySCAD/BOSL2)
+
+## Example Output
+
+Below is a model that was realized from this project with the following parameters:
+
+```
+ball_diameter = 80;
+balls_per_column = 2;
+columns = 2;
+trim_top_pct = 0.50;
+screw_head_diameter = 12;
+screw_shaft_diameter = 6;
+is_feeder = true;
+feeder_scale = 1;
+is_side_cutouts = false;
+is_screw_mount = true;
+```
+
+![Wool Dryer Ball Rack Example](./dryer_ball_rack.jpeg)
+
