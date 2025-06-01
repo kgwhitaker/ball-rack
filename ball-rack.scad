@@ -3,17 +3,12 @@
 //
 
 include <BOSL2/std.scad>
-include <shapes_fun.scad>
 
-// 3D Model Resolution.  
-$fa = 1;
-$fs = 0.4;
-
-// *** Principal Parameters for the Ball Holder ***
+// *** Model Parameters ***
+/* [Model Parameters] */
 
 // Diameter of the ball in millimeters.  Include spacing so that it is not too tight.
-// 64mm for a lacrosse ball.
-// 80mm for a wool dryer ball.
+// 64mm for a lacrosse ball, 80mm for a wool dryer ball.
 ball_diameter = 64;
 
 // Number of balls to hold in each column.
@@ -22,11 +17,34 @@ balls_per_column = 2;
 // Number of columns
 columns = 1;
 
+// Thickness of the walls for the holder.
+wall_thickness = 2;
+
 // Percentage of a single ball to trim off the top of the ball rack.
 // This is to let the top of the ball show out the top, and lets a 
 // three ball rack fit in a 210mm tall printer.
-// 0.50 = 50% of the ball diameter.  Set to 0 if you want the balls to be fully enclosed.
-trim_top_pct = 0;
+// 0.50 = 50% of the ball diameter.  0=Ball is fully enclosed.
+trim_top_pct = 0; // [0:0.1:1]
+
+// Set to true to put cutouts on the sides of the holder.
+side_cutouts = true;
+
+/* [Feeder Tray] */
+
+// If true, the ball holder will have a ball feeder at the bottom.
+// Otherwise the balls need to be pulled from the top.
+feeder_tray = false;
+
+//
+// Scale for the feeder tray, if desired.  This will make the catch tray 
+// a percentage of the ball diameter.  I think the aesthetics are better if the catch 
+// tray is less than the diameter of the ball.  1=No scaling.
+feeder_scale = 0.6; // [0.1:0.1:1]
+
+/* [Screw Mount] */
+
+// Keyhole for screw mounting of the ball holder.
+screw_mount = false;
 
 // Screw Head Diameter for the mounting screw.
 screw_head_diameter = 12;
@@ -34,31 +52,14 @@ screw_head_diameter = 12;
 // Screw Shaft Diameter for the mounting screw.
 screw_shaft_diameter = 6;
 
-// If true, the ball holder will have a ball feeder at the bottom.
-// Otherwise the balls need to be pulled from the top.
-is_feeder = true;
+// *** "Private" variables ***
+/* [Hidden] */
 
-//
-// Scale for the feeder tray, if desired.  This will make the catch tray 
-// a percentage of the ball diameter.  I think the aesthetics are better if the catch 
-// tray is less than the diameter of the ball.  
-//
-// 1 is no scaling.
-//
-feeder_scale = 0.67;
+// OpenSCAD System Settings
+$fa = 1;
+$fs = 0.4;
 
-// Set to true to put cutouts on the sides of the holder to reduce filament use.
-is_side_cutouts = false;
-
-// Set to false if you do not want to have the keyhole screw mounts for the model.
-is_screw_mount = false;
-
-// *** End of Principal Parameters ***
-
-// *** "private" parameters.  Parameters intended to be used internally to the model. ***
-
-// Thickness of the walls for the holder.
-wall_thickness = 2;
+// *** Calculated Global Vars *** 
 
 // Radius of the notch cutout curved edges.  Calculate at 20% of the ball diameter.
 notch_radius = ball_diameter * 0.20;
@@ -105,7 +106,7 @@ module outer_notch(x_pos) {
     translate([
         x_pos, 
         (ball_diameter / 2) - (notch_width / 2) + wall_thickness, 
-        (notch_width / 2) + wall_thickness]) 
+        notch_width + wall_thickness]) 
         {
             cuboid([2 * wall_thickness, notch_width, balls_per_column * ball_diameter], 
                 anchor=FRONT+LEFT+BOT, rounding=notch_radius, edges=[BOT], except=[LEFT, RIGHT]);
@@ -138,7 +139,7 @@ module screw_hole(x_pos) {
 // rounded - If true, round the edges on the bottom of the notch.
 //
 module front_notch(column = 0, rounded = true) {
-    relative_z = (ball_diameter / 6) + wall_thickness;
+    relative_z = notch_width + wall_thickness; 
     translate([
         (((ball_diameter + wall_thickness) * column) + (notch_width / 2) + wall_thickness),
         ball_diameter - wall_thickness,
@@ -227,6 +228,25 @@ module feeder_tube(column = 0) {
 
 }
 
+// 
+// Creates a keyhole shape for a screw
+//
+// Parameters:
+//
+// screw_head_diameter: The diameter of the screw head
+// screw_shaft_diameter: The diameter of the screw shaft
+// keyhole_depth: The depth of the keyhole
+// anchor: The anchor point for the keyhole.  See BOSL2/attachments.scad for anchor points.
+//
+module screw_keyhole(screw_head_diameter, screw_shaft_diameter, keyhole_depth, anchor) {
+    rotate([-90, 0, 0]) {
+        linear_extrude(height = keyhole_depth) {
+            keyhole(l=screw_head_diameter, r1=(screw_head_diameter /2), r2=(screw_shaft_diameter / 2), anchor=anchor);
+        }
+    }
+}
+
+
 //
 // Main function build the model in its entirety.
 //
@@ -237,7 +257,7 @@ module build_model() {
         // Outer cube that defines the overall ball holder.
         union() {
             cuboid([width, depth, height], anchor=FRONT+LEFT+BOT, rounding=fillet_radius,  except=BOT);
-            if (is_feeder) feeder_tray();
+            if (feeder_tray) feeder_tray();
         }   
 
         
@@ -250,7 +270,7 @@ module build_model() {
                 cuboid([ball_diameter, ball_diameter, height], anchor=FRONT+LEFT+BOT, rounding=(fillet_radius * 2));
             }
 
-            if (is_feeder) {
+            if (feeder_tray) {
                 front_notch(i, false);
                 feeder_tube(i);
             } else {
@@ -263,7 +283,7 @@ module build_model() {
         }    
         
         // Put a notch on the left and right sides to reduce filament use.
-        if (is_side_cutouts) {
+        if (side_cutouts) {
             // Right notch
             outer_notch(x_pos = -1 * (wall_thickness / 2));
 
@@ -273,7 +293,7 @@ module build_model() {
 
 
         // Put in a keyhole for the screw to hang the holder.
-        if (is_screw_mount) {
+        if (screw_mount) {
             // Right Screw Keyhole
             screw_hole(x_pos = screw_head_diameter);
 
@@ -282,7 +302,7 @@ module build_model() {
         }
     } // end difference
 
-    if (is_feeder) {
+    if (feeder_tray) {
         // Layer in feeder ramps for the feeder tray.
         for (i = [0 : columns - 1]) {
             feeder_ramp(i);
