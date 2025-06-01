@@ -2,6 +2,7 @@
 // A holder for balls. Wool Dryer Balls.  Lacrosse Balls.  Whatever balls you want to hold. 
 //
 
+// The Belfry OpenScad Library, v2:  https://github.com/BelfrySCAD/BOSL2
 include <BOSL2/std.scad>
 
 // *** Model Parameters ***

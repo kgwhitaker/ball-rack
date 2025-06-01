@@ -13,11 +13,11 @@ create a holder for wool dryer balls that fastens to the wall and lacrosse balls
 | balls_per_column     | Number of balls to hold in each column.                                                                                                                                    |
 | columns              | Number of columns in the ball holder.                                                                                                                                      |
 | trim_top_pct         | Percentage of a single ball to trim off the top of the ball rack. This is to let the top of the ball show out the top or help it fit within the maximum Z of your printer. |
-| is_screw_mount       | Set to false if you do not want to have the keyhole screw mounts for the model.                                                                                            |
+| screw_mount          | Set to false if you do not want to have the keyhole screw mounts for the model.                                                                                            |
 | screw_head_diameter  | Screw head diameter in millimeters for the mounting screw.                                                                                                                 |
 | screw_shaft_diameter | Screw shaft diameter in millimeters for the mounting screw.                                                                                                                |
-| is_feeder            | If true, the ball holder will have a ball feeder at the bottom. Otherwise the balls need to be pulled from the top.                                                        |
-| is_side_cutouts      | Set to true to put cutouts on the sides of the holder to reduce filament use.                                                                                              |
+| feeder               | If true, the ball holder will have a ball feeder at the bottom. Otherwise the balls need to be pulled from the top.                                                        |
+| side_cutouts         | Set to true to put cutouts on the sides of the holder to reduce filament use.                                                                                              |
 
 ## Dependencies and Building
 
@@ -45,4 +45,3 @@ is_screw_mount = true;
 ```
 
 ![Wool Dryer Ball Rack Example](./dryer_ball_rack.jpeg)
-
