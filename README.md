@@ -31,11 +31,15 @@ conventions:
 - `*-2col*`: The rack has two columns.
 - `*-screw-mount-*`: There are keyholes for mounting the ball rack.
 
+Also in the `models` folder is `*.3mf` files.  These are [Orca Slicer](https://orcaslicer.com) project files that I used.  
+`*-a1mini.3mf` project file is for a Bambu Lab A1 mini.  `*-mk3.3mf` is for a Prusa MK3S+ printer.
+
 ## Dependencies and Building
 
 This model is built using the tools listed below. Install these tools and you can open up the SCAD file
-in this repo to create your own printable object.  Once installed, you can use the `Customizer` UI in OpenSCAD 
-to modify the model to fit your needs.  I do recommend installing the [development snapshot of OpenSCAD](https://openscad.org/downloads.html#snapshots) for best experience.
+in this repo to create your own printable object.  Once installed, you can use the _Customizer_ UI in OpenSCAD 
+to modify the model to fit your needs.  I do recommend installing the [development snapshot of OpenSCAD](https://openscad.org/downloads.html#snapshots) 
+for the best experience.
 
 - [OpenSCAD](https://openscad.org)
 - [The Belfry OpenScad Library, v2.0.](https://github.com/BelfrySCAD/BOSL2)

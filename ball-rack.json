@@ -29,11 +29,11 @@
         "Dryer Ball - Feeder ": {
             "ball_diameter": "80",
             "balls_per_column": "2",
-            "columns": "1",
+            "columns": "2",
             "feeder_scale": "0.70000000000000007",
             "feeder_tray": "true",
             "screw_head_diameter": "12",
-            "screw_mount": "false",
+            "screw_mount": "true",
             "screw_shaft_diameter": "6",
             "side_cutouts": "false",
             "trim_top_pct": "0",
@@ -42,7 +42,7 @@
         "Dryer Ball - No Feeder": {
             "ball_diameter": "80",
             "balls_per_column": "3",
-            "columns": "1",
+            "columns": "2",
             "feeder_scale": "0.70000000000000007",
             "feeder_tray": "false",
             "screw_head_diameter": "12",
