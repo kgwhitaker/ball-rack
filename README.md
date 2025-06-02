@@ -46,7 +46,9 @@ for the best experience.
 
 ## Example Output
 
-A wool dryer ball rack using the following parameters:
+### Two Column Dryer Ball Rack
+
+Parameters used:
 
 ```
 ball_diameter = 80;
@@ -63,12 +65,18 @@ screw_mount = true;
 
 ![Wool Dryer Ball Rack Example](./images/dryer_ball_rack.jpeg)
 
-Lacrosse Ball Rack, no screw holes, and a feeder tray.
+### One Column Dryer Ball Rack
+
+![1 Column Wool Dryer Ball Rack](./images/dryer_ball_rack_1col.jpeg)
+
+### Lacrosse Ball Rack with Feeder Tray
 
 ![Lacrosse Ball Rack Example](./images/lacrosse_ball_rack.jpeg)
 
-Lacrosse Ball Rack with no feeder tray.
+### Lacrosse Ball Rack with no Feeder Tray
 
 ![Lacrosse Ball Rack with no Feeder Tray](./images/lacrosse_ball_rack_no_feeder.jpeg)
 
+### Optional Screw Holes
 
+![Optional Screw Holes](./images/optional_screw_hole.jpeg)
