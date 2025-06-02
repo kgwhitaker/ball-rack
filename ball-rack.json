@@ -26,17 +26,17 @@
             "trim_top_pct": "0.30000000000000004",
             "wall_thickness": "2"
         },
-        "Dryer Ball - Feeder": {
+        "Dryer Ball - Feeder ": {
             "ball_diameter": "80",
-            "balls_per_column": "3",
+            "balls_per_column": "2",
             "columns": "1",
             "feeder_scale": "0.70000000000000007",
             "feeder_tray": "true",
             "screw_head_diameter": "12",
-            "screw_mount": "true",
+            "screw_mount": "false",
             "screw_shaft_diameter": "6",
             "side_cutouts": "false",
-            "trim_top_pct": "0.30000000000000004",
+            "trim_top_pct": "0",
             "wall_thickness": "2"
         },
         "Dryer Ball - No Feeder": {
@@ -46,10 +46,10 @@
             "feeder_scale": "0.70000000000000007",
             "feeder_tray": "false",
             "screw_head_diameter": "12",
-            "screw_mount": "true",
+            "screw_mount": "false",
             "screw_shaft_diameter": "6",
             "side_cutouts": "true",
-            "trim_top_pct": "0.30000000000000004",
+            "trim_top_pct": "0.5",
             "wall_thickness": "2"
         }
     }
